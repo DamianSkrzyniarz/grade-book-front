@@ -1,12 +1,20 @@
 import React, {useState} from "react";
 
-interface student {
+interface studentProps {
     id: number
 }
 
-function StudentInfo(props: student){
+interface Student{
+    firstName: string
+    lastName: string
+    index: number
+    semester: string
+    major: string
+}
 
-    const [studentData, setStudentData] = useState([])
+function StudentInfo(props: studentProps){
+
+    const [studentData, setStudentData] = useState<Student>([])
 
 
     React.useEffect(() => {

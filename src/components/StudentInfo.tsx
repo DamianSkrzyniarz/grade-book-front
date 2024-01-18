@@ -5,23 +5,23 @@ interface studentProps {
 }
 
 interface Student{
-    firstName: string
-    lastName: string
-    index: number
-    semester: string
-    major: string
+    firstName?: string
+    lastName?: string
+    index?: number
+    semester?: string
+    major?: string
 }
 
 function StudentInfo(props: studentProps){
 
-    const [studentData, setStudentData] = useState<Student>([])
+    const [studentData, setStudentData] = useState<Student>({})
 
 
     React.useEffect(() => {
         fetch(`http://localhost:8080/students/id/${props.id}`, {
             method: 'GET',
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "text/plain"
             }
         })
             .then(response => response.json())

@@ -16,7 +16,6 @@ function StudentInfo(props: studentProps){
 
     const [studentData, setStudentData] = useState<Student>({})
 
-
     React.useEffect(() => {
         fetch(`http://localhost:8080/students/id/${props.id}`, {
             method: 'GET',
@@ -29,7 +28,6 @@ function StudentInfo(props: studentProps){
     }, [])
     return (
         <div className="container-sm">
-
             <table className="table table-striped-columns table-bordered">
                 <tbody>
                     <tr>

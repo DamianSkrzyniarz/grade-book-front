@@ -1,4 +1,35 @@
-function CourseList() {
+import {useEffect, useState} from "react";
+
+interface studentProps {
+    id: number
+}
+
+interface Signup{
+    course?: {
+        name: string
+        teacher: {
+            firstName: string
+            lastName: string
+        }
+
+    }
+    ects?: number
+    grade?: number
+    attempt?: number
+    gradeDate?: string
+}
+
+function CourseList(props: studentProps) {
+
+    const [signupsData, setSignupsData] = useState<Signup[]>([])
+
+    useEffect(() => {
+        fetch(`http://localhost:8080/signups/student/${props.id}`)
+            .then(response => response.json())
+            .then(data => setSignupsData(data))
+    }, [])
+
+
     return (
         <div className="container">
             <table className="table table-striped table-bordered">
@@ -13,22 +44,21 @@ function CourseList() {
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td>Fizyka</td>
-                    <td>Mark Burger</td>
-                    <td>4</td>
-                    <td>5</td>
-                    <td>1</td>
-                    <td>01.03.2024</td>
-                </tr>
-                <tr>
-                    <td>Fizyka</td>
-                    <td>Mark Burger</td>
-                    <td>4</td>
-                    <td>5</td>
-                    <td>1</td>
-                    <td>01.03.2024</td>
-                </tr>
+                {
+                    signupsData.map(signup =>{
+                        console.log(signup)
+                        return (
+                        <tr>
+                            <td>{signup.course?.name}</td>
+                            <td>{signup.course?.teacher.firstName} {signup.course?.teacher.lastName}</td>
+                            <td>{signup.ects}</td>
+                            <td>{signup.grade}</td>
+                            <td>{signup.attempt}</td>
+                            <td>{signup.gradeDate}</td>
+                        </tr>
+                    )
+                    })
+                }
                 </tbody>
             </table>
         </div>

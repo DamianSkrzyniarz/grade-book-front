@@ -1,13 +1,12 @@
 import './App.css'
 import Navbar from "./components/Navbar.tsx";
-//import StudentInfo from "./components/StudentInfo.tsx";
-import CourseList from "./components/CourseList.tsx";
+import LoginForm from "./components/LoginForm.tsx";
 
 function App() {
   return (
     <div>
       <Navbar/>
-      <CourseList id={1}/>
+      <LoginForm/>
     </div>
   )
 }

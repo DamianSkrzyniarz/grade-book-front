@@ -1,4 +1,22 @@
+import {useEffect, useState} from "react";
+import {jwtDecode} from "jwt-decode";
+import Cookies from "js-cookie";
+
+interface User{
+    sub?: string
+    scope?: string
+}
+
 function Navbar(){
+
+    const [userData, setUserData] = useState<User>({})
+
+    useEffect( () => {
+        if(typeof Cookies.get('token') !== "undefined") {
+            setUserData(jwtDecode<User>(Cookies.get('token')!))
+        }
+    }, [])
+
     return(
         <nav className="navbar navbar-expand-lg bg-body-tertiary">
             <div className="container-fluid">
@@ -8,6 +26,7 @@ function Navbar(){
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
                 </button>
+                <div>{userData.sub}</div>
                 <div className="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                         <li className="nav-item dropdown">

@@ -1,27 +1,20 @@
 import React, {useState} from "react";
+import {Student} from "../interfaces/Student.ts";
+import Cookies from "js-cookie";
+import {User} from "../interfaces/User.ts";
 
-interface studentProps {
-    id: number
-}
-
-interface Student{
-    firstName?: string
-    lastName?: string
-    index?: number
-    semester?: string
-    major?: string
-}
-
-function StudentInfo(props: studentProps){
+function StudentInfo(currentUser: User){
 
     const [studentData, setStudentData] = useState<Student>({})
 
+
     React.useEffect(() => {
-        fetch(`http://localhost:8080/students/id/${props.id}`, {
+        const headers = new Headers()
+        headers.set('Authorization', 'Bearer ' + Cookies.get('token'));
+        fetch(`http://localhost:8080/students/email/${currentUser.sub}`, {
             method: 'GET',
-            headers: {
-                "Content-Type": "text/plain"
-            }
+            mode: 'cors',
+            headers: headers
         })
             .then(response => response.json())
             .then(data => setStudentData(data))

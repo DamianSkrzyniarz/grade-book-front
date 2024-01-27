@@ -1,4 +1,4 @@
-import {useState} from "react";
+import React, {useState} from "react";
 import Cookies from 'js-cookie';
 
 interface Credentials{
@@ -24,30 +24,27 @@ function LoginForm(){
                 location.reload()
             })
     }
-    function handleEmailChange(event: React.ChangeEvent<HTMLInputElement>){
-        setFormData({
-            email: event.target.value,
-            password: formData.password
-        })
+
+    function handleChange(event: React.ChangeEvent<HTMLInputElement>){
+        console.log(event.target)
+        setFormData((current) => ({
+            ...current,
+            [event.target.id]: event.target.value
+        }))
     }
-    function handlePasswordChange(event: React.ChangeEvent<HTMLInputElement>){
-        setFormData({
-            email: formData.email,
-            password: event.target.value
-        })
-    }
+
     return (
         <div className="container">
             <form onSubmit={handleForm}>
                 <div className="mb-3">
                     <label htmlFor="inputEmail1" className="form-label">Email address</label>
-                    <input type="email" className="form-control" id="inputEmail1" value={formData.email} onChange={handleEmailChange}/>
+                    <input type="email" className="form-control" id="email" value={formData.email} onChange={handleChange}/>
                 </div>
                 <div className="mb-3">
                     <label htmlFor="inputPassword1" className="form-label">Password</label>
-                    <input type="password" className="form-control" id="inputPassword1" value={formData.password} onChange={handlePasswordChange}/>
+                    <input type="password" className="form-control" id="password" value={formData.password} onChange={handleChange}/>
                 </div>
-                <button type="submit" className="btn btn-primary">Submit</button>
+                <button type="submit" className="btn btn-primary">Zaloguj</button>
             </form>
 
         </div>

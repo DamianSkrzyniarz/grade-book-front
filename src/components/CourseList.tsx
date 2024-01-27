@@ -1,8 +1,7 @@
 import {useEffect, useState} from "react";
+import Cookies from "js-cookie";
+import {User} from "../interfaces/User.ts";
 
-interface studentProps {
-    id: number
-}
 
 interface Signup{
     course?: {
@@ -11,20 +10,27 @@ interface Signup{
             firstName: string
             lastName: string
         }
+        ects: number
 
     }
-    ects?: number
     grade?: number
     attempt?: number
     gradeDate?: string
 }
 
-function CourseList(props: studentProps) {
+function CourseList(userData: User) {
 
     const [signupsData, setSignupsData] = useState<Signup[]>([])
 
     useEffect(() => {
-        fetch(`http://localhost:8080/signups/student/${props.id}`)
+        const headers = new Headers()
+        headers.set('Authorization', 'Bearer ' + Cookies.get('token'));
+
+        fetch(`http://localhost:8080/signups/student/email/${userData.sub}`, {
+            method: 'GET',
+            mode: 'cors',
+            headers: headers
+        })
             .then(response => response.json())
             .then(data => setSignupsData(data))
     }, [])
@@ -51,7 +57,7 @@ function CourseList(props: studentProps) {
                         <tr>
                             <td>{signup.course?.name}</td>
                             <td>{signup.course?.teacher.firstName} {signup.course?.teacher.lastName}</td>
-                            <td>{signup.ects}</td>
+                            <td>{signup.course?.ects}</td>
                             <td>{signup.grade}</td>
                             <td>{signup.attempt}</td>
                             <td>{signup.gradeDate}</td>

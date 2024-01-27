@@ -1,15 +1,14 @@
 import {useEffect, useState} from "react";
 import {jwtDecode} from "jwt-decode";
 import Cookies from "js-cookie";
+import CurrentUser from "./CurrentUser.tsx";
+import {User} from "../interfaces/User.ts";
+import MenuList from "./MenuList.tsx";
 
-interface User{
-    sub?: string
-    scope?: string
-}
 
 function Navbar(){
 
-    const [userData, setUserData] = useState<User>({})
+    const [userData, setUserData] = useState<User>()
 
     useEffect( () => {
         if(typeof Cookies.get('token') !== "undefined") {
@@ -26,7 +25,7 @@ function Navbar(){
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
                 </button>
-                <div>{userData.sub}</div>
+                <CurrentUser {...userData}/>
                 <div className="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                         <li className="nav-item dropdown">
@@ -34,12 +33,7 @@ function Navbar(){
                                aria-expanded="false">
                                 Menu
                             </a>
-                            <ul className="dropdown-menu">
-                                <li><a className="dropdown-item" href="#">Mój Profil</a></li>
-                                <li><a className="dropdown-item" href="#">Przedmioty</a></li>
-                                <li><a className="dropdown-item" href="#">Oceny</a></li>
-
-                            </ul>
+                            <MenuList {...userData}/>
                         </li>
                     </ul>
                 </div>

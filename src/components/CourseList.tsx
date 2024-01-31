@@ -52,7 +52,6 @@ function CourseList(userData: User) {
                 <tbody>
                 {
                     signupsData.map(signup =>{
-                        console.log(signup)
                         return (
                         <tr>
                             <td>{signup.course?.name}</td>

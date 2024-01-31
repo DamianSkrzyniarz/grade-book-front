@@ -10,6 +10,7 @@ import Cookies from "js-cookie";
 import {jwtDecode} from "jwt-decode";
 import NewStudentForm from "./components/NewStudentForm.tsx";
 import NewTeacherForm from "./components/NewTeacherForm.tsx";
+import NewCourseForm from "./components/NewCourseForm.tsx";
 
 function App() {
 
@@ -33,7 +34,7 @@ function App() {
         <Route path="/create">
             <Route path="student" element={<NewStudentForm/>}/>
             <Route path="teacher" element={<NewTeacherForm/>}/>
-            <Route path="course"/>
+            <Route path="course" element={<NewCourseForm/>}/>
         </Route>
       </Routes>
     </div>

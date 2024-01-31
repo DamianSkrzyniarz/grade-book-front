@@ -79,7 +79,7 @@ function NewCourseForm() {
                            onChange={handleChange}/>
                 </div>
                 <div className="mb-3">
-                    <select onChange={handleTeacherChange}>
+                    <select className="form-select" onChange={handleTeacherChange}>
                         {
                             teachersData.map(teacher => {
                                 return (

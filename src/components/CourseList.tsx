@@ -35,7 +35,6 @@ function CourseList(userData: User) {
             .then(data => setSignupsData(data))
     }, [])
 
-
     return (
         <div className="container">
             <table className="table table-striped table-bordered">

@@ -11,6 +11,7 @@ import {jwtDecode} from "jwt-decode";
 import NewStudentForm from "./components/NewStudentForm.tsx";
 import NewTeacherForm from "./components/NewTeacherForm.tsx";
 import NewCourseForm from "./components/NewCourseForm.tsx";
+import CourseInfo from "./components/CourseInfo.tsx";
 
 function App() {
 
@@ -28,9 +29,9 @@ function App() {
       <Routes>
         <Route path="/login" element={<LoginForm/>}/>
         <Route path="/student" element={<StudentInfo {...userData}/>} />
-        <Route path="/courses" element={<CourseList {...userData}/>} >
-            <Route path=":id"/>
-        </Route>
+        <Route path="/courses" element={<CourseList {...userData}/>} />
+        <Route path="/courses/details/:id" element={<CourseInfo/>}/>
+
         <Route path="/create">
             <Route path="student" element={<NewStudentForm/>}/>
             <Route path="teacher" element={<NewTeacherForm/>}/>

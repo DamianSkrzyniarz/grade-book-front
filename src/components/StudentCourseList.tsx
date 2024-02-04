@@ -1,24 +1,11 @@
 import {useEffect, useState} from "react";
 import Cookies from "js-cookie";
 import {User} from "../interfaces/User.ts";
+import {Link} from "react-router-dom";
+import {Signup} from "../interfaces/Signup.ts";
 
 
-interface Signup{
-    course?: {
-        name: string
-        teacher: {
-            firstName: string
-            lastName: string
-        }
-        ects: number
-
-    }
-    grade?: number
-    attempt?: number
-    gradeDate?: string
-}
-
-function CourseList(userData: User) {
+function StudentCourseList(userData: User) {
 
     const [signupsData, setSignupsData] = useState<Signup[]>([])
 
@@ -42,6 +29,7 @@ function CourseList(userData: User) {
                 <tr>
                     <th scope="col">Przedmiot</th>
                     <th scope="col">Prowadzący</th>
+                    <th scope="col">Typ zajęć</th>
                     <th scope="col">ECTS</th>
                     <th scope="col">Ocena</th>
                     <th scope="col">Termin</th>
@@ -52,15 +40,18 @@ function CourseList(userData: User) {
                 {
                     signupsData.map(signup =>{
                         return (
-                        <tr>
-                            <td>{signup.course?.name}</td>
-                            <td>{signup.course?.teacher.firstName} {signup.course?.teacher.lastName}</td>
-                            <td>{signup.course?.ects}</td>
-                            <td>{signup.grade}</td>
-                            <td>{signup.attempt}</td>
-                            <td>{signup.gradeDate}</td>
-                        </tr>
-                    )
+                            <tr>
+                                <td>{signup.course?.name}</td>
+                                <td>{signup.course?.teacher.firstName} {signup.course?.teacher.lastName}</td>
+                                <td>{signup.course?.type}</td>
+                                <td>{signup.course?.ects}</td>
+                                <td>{signup.grade}</td>
+                                <td>{signup.attempt}</td>
+                                <td>{signup.gradeDate}</td>
+                                <td><Link to={`/student/courses/details/${signup.course.id}`}>Szczegóły</Link></td>
+
+                            </tr>
+                        )
                     })
                 }
                 </tbody>
@@ -68,5 +59,4 @@ function CourseList(userData: User) {
         </div>
     )
 }
-
-export default CourseList
+export default StudentCourseList

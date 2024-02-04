@@ -9,7 +9,6 @@ function NewTeacherForm(){
 
     function handleForm(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault()
-        console.log(formData)
         const headers = new Headers()
         headers.set('Authorization', 'Bearer ' + Cookies.get('token'));
         headers.append('Content-Type', "application/json")

@@ -5,7 +5,7 @@ import {Teacher} from "../interfaces/Teacher.ts";
 
 function NewCourseForm() {
 
-    const [formData, setFormData] = useState<Course>({})
+    const [formData, setFormData] = useState<Course>({teacher: {}})
     const [teachersData, setTeachersData] = useState<Teacher[]>([])
 
     function handleForm(event: React.FormEvent<HTMLFormElement>) {
@@ -31,7 +31,7 @@ function NewCourseForm() {
     function handleTeacherChange(event: React.ChangeEvent<HTMLSelectElement>) {
         setFormData((current) => ({
             ...current,
-            teacher:  teachersData.find((teacher) => teacher.id === parseInt(event.target.value))
+            teacher:  teachersData.find((teacher) => teacher.id === parseInt(event.target.value))!
         }))
     }
 
@@ -79,7 +79,8 @@ function NewCourseForm() {
                            onChange={handleChange}/>
                 </div>
                 <div className="mb-3">
-                    <select className="form-select" onChange={handleTeacherChange}>
+                    <label htmlFor="teacher" className="form-label">Prowadzący</label>
+                    <select className="form-select" id="teacher" onChange={handleTeacherChange}>
                         {
                             teachersData.map(teacher => {
                                 return (
@@ -91,7 +92,7 @@ function NewCourseForm() {
                         }
                     </select>
                 </div>
-                    <button type="submit" className="btn btn-primary">Dodaj</button>
+                <button type="submit" className="btn btn-primary">Dodaj</button>
             </form>
 
         </div>

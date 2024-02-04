@@ -4,7 +4,7 @@ export interface Course{
     id?: number
     name?: string
     type?: string
-    teacher?: Teacher
+    teacher: Teacher
     ects?: number
     hours?: number
     description?: string

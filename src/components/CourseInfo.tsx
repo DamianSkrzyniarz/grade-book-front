@@ -2,26 +2,24 @@ import React, {useState} from "react";
 import Cookies from "js-cookie";
 import {Course} from "../interfaces/Course.ts";
 import {useParams} from "react-router-dom";
+import SignedUpStudents from "./SignedUpStudents.tsx";
+import {User} from "../interfaces/User.ts";
 
-function CourseInfo(){
+function CourseInfo(userData: User){
 
-    const [courseData, setCourseData] = useState<Course>({})
+    const [courseData, setCourseData] = useState<Course>({teacher: {}})
     const {id} = useParams()
 
     React.useEffect(() => {
         const headers = new Headers()
         headers.set('Authorization', 'Bearer ' + Cookies.get('token'));
-        console.log(id)
         fetch(`http://localhost:8080/courses/${id}`, {
             method: 'GET',
             mode: 'cors',
             headers: headers
         })
             .then(response => response.json())
-            .then(data => {
-                setCourseData(data)
-                console.log(data)
-            })
+            .then(data => setCourseData(data))
     }, [])
     return (
         <div className="container-sm">
@@ -34,6 +32,10 @@ function CourseInfo(){
                 <tr>
                     <th scope="row">Prowadzący</th>
                     <td>{courseData.teacher?.firstName} {courseData.teacher?.lastName}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Typ zajęć</th>
+                    <td>{courseData.type}</td>
                 </tr>
                 <tr>
                     <th scope="row">Punkty ECTS</th>
@@ -49,6 +51,7 @@ function CourseInfo(){
                 </tr>
                 </tbody>
             </table>
+        <SignedUpStudents {...userData}/>
         </div>
     )
 }

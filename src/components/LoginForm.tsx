@@ -26,7 +26,6 @@ function LoginForm(){
     }
 
     function handleChange(event: React.ChangeEvent<HTMLInputElement>){
-        console.log(event.target)
         setFormData((current) => ({
             ...current,
             [event.target.id]: event.target.value
